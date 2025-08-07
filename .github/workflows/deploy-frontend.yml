@@ -36,4 +36,4 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_TOKEN }}
           app_location: "/"
           api_location: ""
-          output_location: "dist"   
+          output_location: "dist"
