@@ -4,24 +4,44 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repository
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm install
 
+      # 4️⃣ Build project
       - name: Build
         run: npm run build
 
-     
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ secrets.deployment_token != '' }} 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy
+        env:
+          DEPLOYMENT_TOKEN: ${{ secrets.deployment_token }}
+        run: |
+          echo "Deploying project..."
+          # Replace the line below with your actual deploy command
+          # For example, if deploying to GitHub Pages:
+          # npx gh-pages -d build -t $DEPLOYMENT_TOKEN
