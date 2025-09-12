@@ -1,4 +1,4 @@
-name: Startup-kit
+name: YB-CI-CD-Frontend
 
 on:
   push:
